@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dcqiosb5d01o0"]
+
+[ext_resource type="Material" uid="uid://dw1useipau0ku" path="res://balloon_popper/BalloonBoss.tres" id="1_4f1uq"]
+[ext_resource type="Script" path="res://balloon_popper/BalloonBoss.gd" id="1_kvd2h"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_h1xth"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_n8lty"]
+
+[node name="BossBalloon" type="Area3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+script = ExtResource("1_kvd2h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_4f1uq")
+mesh = SubResource("SphereMesh_h1xth")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_n8lty")

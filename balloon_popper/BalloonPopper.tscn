@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c508x0wnvk6pu"]
+[gd_scene load_steps=5 format=3 uid="uid://c508x0wnvk6pu"]
 
 [ext_resource type="Script" path="res://balloon_popper/BalloonManager.gd" id="1_glyja"]
 [ext_resource type="PackedScene" uid="uid://dtnaspqua75jn" path="res://balloon_popper/balloon.tscn" id="2_unb6s"]
+[ext_resource type="PackedScene" uid="uid://dcqiosb5d01o0" path="res://balloon_popper/BalloonBoss.tscn" id="3_yymq7"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xjfiu"]
 font_size = 48
@@ -12,10 +13,6 @@ score_text = NodePath("ScoreText")
 
 [node name="Balloon" parent="." instance=ExtResource("2_unb6s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.889788, 0.0289572, 0.0316296)
-
-[node name="Balloon5" parent="." instance=ExtResource("2_unb6s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0364302, 0.512901, -0.02736)
-clicks_to_pop = 5
 
 [node name="Balloon2" parent="." instance=ExtResource("2_unb6s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.997741, 0.0533789, 0)
@@ -41,3 +38,8 @@ offset_right = 371.0
 offset_bottom = 123.0
 text = "Score: 0"
 label_settings = SubResource("LabelSettings_xjfiu")
+
+[node name="BossBalloon" parent="." instance=ExtResource("3_yymq7")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.570763, 0)
+
+[connection signal="input_event" from="BossBalloon" to="BossBalloon" method="_on_input_event"]
