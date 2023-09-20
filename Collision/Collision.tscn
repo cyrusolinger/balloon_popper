@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://128f81eg6qgw"]
+[gd_scene load_steps=18 format=3 uid="uid://128f81eg6qgw"]
 
 [ext_resource type="Script" path="res://Collision/PlayerMovement.gd" id="1_a8td8"]
 [ext_resource type="PackedScene" uid="uid://clgeauv44vdyy" path="res://Collision/Tree.tscn" id="2_7tyqy"]
+[ext_resource type="Script" path="res://Collision/WinZone.gd" id="3_cadb3"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_wekpm"]
 
@@ -32,6 +33,13 @@ albedo_color = Color(0.298039, 0.415686, 0, 1)
 [sub_resource type="Environment" id="Environment_p50b7"]
 background_mode = 1
 background_color = Color(0.74902, 0.760784, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gxln3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3dqjw"]
+albedo_color = Color(0.929412, 1, 0.290196, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cs002"]
 
 [node name="Main" type="Node3D"]
 
@@ -94,5 +102,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78051, 0.0346885, -0.03758
 
 [node name="Tree5" parent="." instance=ExtResource("2_7tyqy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16037, 0.0346885, -0.0375857)
+
+[node name="WinZone" type="StaticBody3D" parent="." groups=["Win"]]
+transform = Transform3D(12, 0, 0, 0, 0.234923, 17.101, 0, -0.085505, 46.9846, 0, 0, -7.69289)
+collision_layer = 0
+script = ExtResource("3_cadb3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WinZone"]
+transform = Transform3D(0.5, 0, 0, 0, 0.939693, 0.0171003, 0, -0.34202, 0.0469846, 0.001317, -9.95742, 0.329943)
+mesh = SubResource("PlaneMesh_gxln3")
+surface_material_override/0 = SubResource("StandardMaterial3D_3dqjw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WinZone"]
+transform = Transform3D(1.03006, 0, 0, 0, 0.0333416, -4.76837e-06, 0, 9.38599e-10, 0.0737663, -0.00192587, -9.85385, 0.340313)
+shape = SubResource("BoxShape3D_cs002")
 
 [connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
