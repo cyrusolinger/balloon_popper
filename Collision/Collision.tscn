@@ -1,0 +1,98 @@
+[gd_scene load_steps=14 format=3 uid="uid://128f81eg6qgw"]
+
+[ext_resource type="Script" path="res://Collision/PlayerMovement.gd" id="1_a8td8"]
+[ext_resource type="PackedScene" uid="uid://clgeauv44vdyy" path="res://Collision/Tree.tscn" id="2_7tyqy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wekpm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ll14x"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_t8h0i"]
+friction = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_2pkqa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xluot"]
+albedo_color = Color(0.619608, 0, 0.662745, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7yrh2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8vp26"]
+albedo_color = Color(0.32549, 0, 0.0156863, 1)
+metallic = 0.5
+roughness = 0.55
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_oduf3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d81yj"]
+albedo_color = Color(0.298039, 0.415686, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t3j8h"]
+
+[sub_resource type="Environment" id="Environment_p50b7"]
+background_mode = 1
+background_color = Color(0.74902, 0.760784, 1, 1)
+
+[node name="Main" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(12, 0, 0, 0, 0.234923, 17.101, 0, -0.085505, 46.9846, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_wekpm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_ll14x")
+
+[node name="Player" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.93016, 9.12183, 22.4965)
+physics_material_override = SubResource("PhysicsMaterial_t8h0i")
+max_contacts_reported = 5
+contact_monitor = true
+script = ExtResource("1_a8td8")
+
+[node name="Body" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.173929, 0, 0, 0, 0.69217, 0.0699087, 0, -0.185466, 0.260903, 0, 0, 0)
+mesh = SubResource("BoxMesh_2pkqa")
+surface_material_override/0 = SubResource("StandardMaterial3D_xluot")
+
+[node name="Board" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.421711, 0, 0, 0, 0.0812746, 0.258819, 0, -0.0217775, 0.965926, 0, -0.437275, -0.0052712)
+mesh = SubResource("BoxMesh_7yrh2")
+surface_material_override/0 = SubResource("StandardMaterial3D_8vp26")
+
+[node name="Head" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(0.186263, 0, 0, 0, 0.0862153, -0.146917, 0, 0.302381, 0.0418892, -0.00379711, 0.392558, -0.190699)
+mesh = SubResource("CapsuleMesh_oduf3")
+surface_material_override/0 = SubResource("StandardMaterial3D_d81yj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(0.419192, 0, 0, 0, 0.559222, 0.23594, 0, -0.149843, 0.880538, -0.0010998, -0.21515, -0.113529)
+shape = SubResource("BoxShape3D_t3j8h")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.813537, 0.581513, 0, -0.581513, 0.813537, 0, 1.61257, 2.64992)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.915992, 0.149024, 0.372492, -0.401197, 0.340244, 0.850456, 0, -0.928453, 0.371449, 0.939969, 4.11909, -0.201205)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_p50b7")
+
+[node name="Tree" parent="." instance=ExtResource("2_7tyqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000136733, 0.0346885, -0.0375857)
+
+[node name="Tree2" parent="." instance=ExtResource("2_7tyqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.62406, 0.0346885, -0.0375857)
+
+[node name="Tree3" parent="." instance=ExtResource("2_7tyqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.156, 0.0346885, -0.0375857)
+
+[node name="Tree4" parent="." instance=ExtResource("2_7tyqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.78051, 0.0346885, -0.0375857)
+
+[node name="Tree5" parent="." instance=ExtResource("2_7tyqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.16037, 0.0346885, -0.0375857)
+
+[connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
